@@ -1,0 +1,24 @@
+{
+    "list_name": "My tasks",
+    "last_update": "2023-08-08T19:27:33.103531",
+    "tasks_list": [
+        {
+            "task_name": "new task"
+        },
+        {
+            "task_name": "buy groceries"
+        },
+        {
+            "task_name": "go for a walk"
+        },
+        {
+            "task_name": "open door"
+        },
+        {
+            "task_name": "turn on computer"
+        },
+        {
+            "task_name": "Sooper pooper task"
+        }
+    ]
+}
