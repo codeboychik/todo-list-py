@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 import json
 
@@ -42,8 +43,8 @@ def validate_json(file_name='tasks.json'):
     return (
         True
         if "list_name" in dictionary
-        and "last_update" in dictionary
-        and "tasks" in dictionary
+           and "last_update" in dictionary
+           and "tasks" in dictionary
         else ValueError
     )
 
@@ -67,3 +68,14 @@ def check_password(password):
             else criteria.append(False)
     criteria = criteria.count(True)
     return "Weak Password" if criteria <= 2 else ("Normal Password" if criteria == 3 else "Strong Password")
+
+
+def add_task(value):
+    try:
+        tasks = get_dictionary()
+        tasks_list = tasks['tasks_list'] if tasks['tasks_list'] is not None else []
+        tasks_list.append(value)
+        tasks['tasks_list'] = tasks_list
+        write_to_json(file_name='tasks.json', tasks=tasks, update_timestamp=True)
+    except OSError or NameError or PermissionError:
+        print("Error occured while writing into file.")
