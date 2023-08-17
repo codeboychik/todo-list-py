@@ -51,11 +51,8 @@ def validate_json(file_name='tasks.json'):
 
 def get_task_list(file_name='tasks.json'):
     validate_json(file_name)
-    tasks = []
     dictionary = get_dictionary(file_name)
-    for task in dictionary['tasks_list']:
-        task.append(task["task_name"])
-    return tasks
+    return [task["task_name"] for task in dictionary['tasks_list']]
 
 
 def check_password(password):
@@ -74,8 +71,14 @@ def add_task(value):
     try:
         tasks = get_dictionary()
         tasks_list = tasks['tasks_list'] if tasks['tasks_list'] is not None else []
-        tasks_list.append(value)
+        tasks_list.extend([{"task_name": value}])
         tasks['tasks_list'] = tasks_list
         write_to_json(file_name='tasks.json', tasks=tasks, update_timestamp=True)
     except OSError or NameError or PermissionError:
         print("Error occured while writing into file.")
+
+
+def edit_task(current_todo, new_todo):
+    tasks = get_dictionary()
+    tasks['tasks_list'][tasks['tasks_list'].index({'task_name': current_todo})] = {'task_name': new_todo}
+    write_to_json('tasks.json', tasks, True)
