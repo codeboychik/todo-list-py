@@ -78,7 +78,15 @@ def add_task(value):
         print("Error occured while writing into file.")
 
 
-def edit_task(current_todo, new_todo):
+def edit_task(current_task, new_task):
     tasks = get_dictionary()
-    tasks['tasks_list'][tasks['tasks_list'].index({'task_name': current_todo})] = {'task_name': new_todo}
+    tasks['tasks_list'][tasks['tasks_list'].index({'task_name': current_task})] = {'task_name': new_task}
     write_to_json('tasks.json', tasks, True)
+
+
+def remove_task(taskname):
+    tasks = get_dictionary()
+    tasks_list = tasks['tasks_list'] if tasks['tasks_list'] is not None else []
+    tasks_list.remove({"task_name": taskname})
+    tasks['tasks_list'] = tasks_list
+    write_to_json(file_name='tasks.json', tasks=tasks, update_timestamp=True)
