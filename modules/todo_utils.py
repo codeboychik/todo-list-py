@@ -1,6 +1,18 @@
 import re
 from datetime import datetime
 import json
+import os
+
+
+def init_json(file_name='tasks.json'):
+    if not os.path.exists(f'./{file_name}'):
+        with open(f'{file_name}', 'w') as file:
+            data = {
+                "list_name": "My tasks",
+                "last_update": datetime.now().isoformat(),
+                "tasks_list": list()
+            }
+            json.dump(data, file)
 
 
 def get_dictionary(file_name='tasks.json'):
