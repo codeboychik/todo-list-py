@@ -32,14 +32,10 @@ def is_valid_filepaths(input_val):
     paths = input_val.get().split(';')
     for path in paths:
         try:
-            code = code if not os.path.isfile(path) else code +1
+            code = code if not os.path.isfile(path) else code + 1
         except FileNotFoundError:
             pass
     return True if code == len(paths) else False
-
-
-def is_valid_folder(input_val):
-    return FileNotFoundError if not os.path.isfile(input_val.get().strip()) else True
 
 
 def resolve_filename(input_val):
@@ -55,7 +51,7 @@ while True:
         break
 
     if event == 'Compress' \
-            and is_valid_folder(input2) \
+            and os.path.isdir(input2.get()) \
             and is_valid_filepaths(input1):
         with zf.ZipFile(f'{input2.get().strip()}/{resolve_filename(input3)}', 'w') as myzip:
             [myzip.write(item, arcname=item.split('/')[-1]) for item in get_files(input1)]
