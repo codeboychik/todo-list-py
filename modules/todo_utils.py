@@ -47,18 +47,18 @@ def write_to_json(file_name, tasks, update_timestamp=False):
         json.dump(tasks, json_file, indent=4)
 
 
-def validate_json(file_name='tasks.json'):
+def validate_json(file_name='tasks.json') -> bool:
     if not file_name.endswith(".json"):
         raise ValueError
     with open(file_name, "r") as file:
         dictionary = json.load(file)
-    return (
-        True
-        if "list_name" in dictionary
-           and "last_update" in dictionary
-           and "tasks" in dictionary
-        else ValueError
-    )
+        return (
+            True
+            if "list_name" in dictionary
+               and "last_update" in dictionary
+               and "tasks_list" in dictionary
+            else False
+        )
 
 
 def get_task_list(file_name='tasks.json'):
